@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Auxil</string>
+    <string name="title_activity_food_bank_map">Food Bank Locator Map</string>
 </resources>
