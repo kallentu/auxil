@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -68,10 +69,18 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
         // Gets current location and sets position on the map
         getDeviceLocation();
 
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // TODO: Iterate through all place information and add correct positions + titles
+        // Adds all place markers on the map
+        addMarkers(defaultLocation, "PLACEHOLDER_TITLE");
+    }
+
+    /**
+     * Uses position and marker title to set marker on map
+     * and move to the area of the marker
+     */
+    private void addMarkers(LatLng position, String title) {
+        map.addMarker(new MarkerOptions().position(position).title(title));
+        map.moveCamera(CameraUpdateFactory.newLatLng(position));
     }
 
     /**
