@@ -30,7 +30,9 @@ import com.google.android.gms.tasks.Task;
 public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private String TAG = FoodBankMapActivity.class.getSimpleName();
-
+    private static final int NAV_MAP_INDEX = 0;
+    private static final int NAV_DONATE_INDEX = 1;
+    private static final int NAV_SETTINGS_INDEX = 2;
     private static final int FINE_LOCATION_PERMISSION_REQUEST_CODE = 1;
     private Boolean locationPermissionGranted;
 
@@ -77,18 +79,24 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                         switch(item.getItemId()) {
                             case R.id.nav_map:
                                 item.setEnabled(false);
-                                bottomNavigationView.getMenu().getItem(1).setEnabled(true);
-                                bottomNavigationView.getMenu().getItem(2).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
                                 break;
                             case R.id.nav_donate:
                                 item.setEnabled(false);
-                                bottomNavigationView.getMenu().getItem(0).setEnabled(true);
-                                bottomNavigationView.getMenu().getItem(2).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
                                 break;
                             case R.id.nav_settings:
                                 item.setEnabled(false);
-                                bottomNavigationView.getMenu().getItem(0).setEnabled(true);
-                                bottomNavigationView.getMenu().getItem(1).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
                                 break;
                         }
                         return true;
