@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_map"
+        android:enabled="false"
+        android:icon="@drawable/ic_home"
+        android:title="@string/nav_text_map"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/nav_donate"
+        android:enabled="true"
+        android:icon="@drawable/ic_donate"
+        android:title="@string/nav_text_donate"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/nav_text_settings"
+        app:showAsAction="ifRoom"/>
+</menu>
