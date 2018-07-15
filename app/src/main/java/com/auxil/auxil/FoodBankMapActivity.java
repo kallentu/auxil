@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Window;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -43,6 +44,9 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Removes the top nav bar
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_food_bank_map);
 
         geoDataClient = Places.getGeoDataClient(this);
@@ -62,6 +66,9 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+
+        // Prompt the user for permission.
+        getLocationPermission();
 
         // Sets location controls on map
         updateLocationUI();
