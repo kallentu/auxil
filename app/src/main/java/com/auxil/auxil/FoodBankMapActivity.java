@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.Window;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -48,6 +50,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
         // Removes the top nav bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_food_bank_map);
+        setUpBottomNavigation();
 
         geoDataClient = Places.getGeoDataClient(this);
         placeDetectionClient = Places.getPlaceDetectionClient(this);
@@ -58,6 +61,40 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    /**
+     * Sets listener for the navigation and handles click events
+     */
+    private void setUpBottomNavigation() {
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch(item.getItemId()) {
+                            case R.id.nav_map:
+                                item.setEnabled(false);
+                                bottomNavigationView.getMenu().getItem(1).setEnabled(true);
+                                bottomNavigationView.getMenu().getItem(2).setEnabled(true);
+                                break;
+                            case R.id.nav_donate:
+                                item.setEnabled(false);
+                                bottomNavigationView.getMenu().getItem(0).setEnabled(true);
+                                bottomNavigationView.getMenu().getItem(2).setEnabled(true);
+                                break;
+                            case R.id.nav_settings:
+                                item.setEnabled(false);
+                                bottomNavigationView.getMenu().getItem(0).setEnabled(true);
+                                bottomNavigationView.getMenu().getItem(1).setEnabled(true);
+                                break;
+                        }
+                        return true;
+                    }
+                }
+        );
     }
 
     /**

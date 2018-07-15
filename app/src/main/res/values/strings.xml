@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Auxil</string>
-    <string name="title_activity_food_bank_map">Auxil</string>
+
+    <!-- Title for map activity -->
+    <string name="title_activity_food_bank_map">Food Bank Map</string>
+
+    <!-- Title for map navigation item -->
+    <string name="nav_text_map">Home</string>
+
+    <!-- Title for food bank information navigation item -->
+    <string name="nav_text_info">Info</string>
+
+    <!-- Title for food bank donation navigation item -->
+    <string name="nav_text_donate">Donate</string>
+
+    <!-- Title for food bank donation navigation item -->
+    <string name="nav_text_settings">Settings</string>
 </resources>
