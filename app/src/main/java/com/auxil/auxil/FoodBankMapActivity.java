@@ -123,15 +123,21 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
         // TODO: Iterate through all place information and add correct positions + titles
         // Adds all place markers on the map
-        addMarkers(defaultLocation, "PLACEHOLDER_TITLE");
+        addMarkers(defaultLocation, "Feed Everyone Food Bank");
+        moveCameraToMarker(defaultLocation);
     }
 
     /**
      * Uses position and marker title to set marker on map
-     * and move to the area of the marker
      */
     private void addMarkers(LatLng position, String title) {
         map.addMarker(new MarkerOptions().position(position).title(title));
+    }
+
+    /**
+     * Uses position to move to the area of the marker
+     */
+    private void moveCameraToMarker(LatLng position) {
         map.moveCamera(CameraUpdateFactory.newLatLng(position));
     }
 
