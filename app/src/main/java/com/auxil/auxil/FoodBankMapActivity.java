@@ -131,7 +131,11 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
      * Uses position and marker title to set marker on map
      */
     private void addMarkers(LatLng position, String title) {
-        map.addMarker(new MarkerOptions().position(position).title(title));
+        // TODO: Populate with hours, and short description
+        map.addMarker(new MarkerOptions()
+                .position(position)
+                .title(title))
+                .setSnippet("Population: 4,137,400");
     }
 
     /**
