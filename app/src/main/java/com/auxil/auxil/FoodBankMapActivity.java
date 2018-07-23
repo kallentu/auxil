@@ -1,6 +1,7 @@
 package com.auxil.auxil;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -68,7 +69,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     /**
      * Sets listener for the navigation and handles click events
      */
-    private void setUpBottomNavigation() {
+    public void setUpBottomNavigation() {
         final BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
@@ -76,8 +77,13 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Intent intent;
                         switch(item.getItemId()) {
                             case R.id.nav_map:
+                                intent = new Intent(getApplicationContext(),
+                                        FoodBankMapActivity.class);
+                                startActivity(intent);
+
                                 item.setEnabled(false);
                                 bottomNavigationView.getMenu()
                                         .getItem(NAV_DONATE_INDEX).setEnabled(true);
@@ -85,13 +91,22 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                                         .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
                                 break;
                             case R.id.nav_donate:
+                                intent = new Intent(getApplicationContext(),
+                                        FoodBankDonateActivity.class);
+                                startActivity(intent);
+
                                 item.setEnabled(false);
                                 bottomNavigationView.getMenu()
                                         .getItem(NAV_MAP_INDEX).setEnabled(true);
                                 bottomNavigationView.getMenu()
                                         .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
+
                                 break;
                             case R.id.nav_settings:
+                                intent = new Intent(getApplicationContext(),
+                                        SettingsActivity.class);
+                                startActivity(intent);
+
                                 item.setEnabled(false);
                                 bottomNavigationView.getMenu()
                                         .getItem(NAV_MAP_INDEX).setEnabled(true);
