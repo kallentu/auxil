@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoodBankDonateActivity">
+    tools:context=".FoodBankDonateActivity"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <!-- TODO: Decide what text to put here and then put them in string /res/-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/cabin_condensed_bold"
+        android:textSize="60sp"
+        android:text="AUXIL" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/quicksand"
+        android:textSize="16sp"
+        android:text="Donate money to help food banks." />
+</LinearLayout>

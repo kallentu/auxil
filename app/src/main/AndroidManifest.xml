@@ -24,10 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".FoodBankDonateActivity" />
+
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
     </application>
 
 </manifest>
