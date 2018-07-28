@@ -1,4 +1,4 @@
-package com.auxil.auxil;
+package com.auxil.auxil.mapmarker;
 
 import android.content.Context;
 import android.graphics.Point;
