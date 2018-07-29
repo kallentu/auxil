@@ -92,5 +92,5 @@ public abstract class OnInfoWindowTouchListener implements OnTouchListener {
     };
 
     /** This is called after a successful click */
-    abstract void onClickConfirmed(View v, Marker marker);
+    protected abstract void onClickConfirmed(View v, Marker marker);
 }

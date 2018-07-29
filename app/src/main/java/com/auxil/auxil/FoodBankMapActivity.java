@@ -12,8 +12,15 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.auxil.auxil.mapmarker.MapWrapperLayout;
+import com.auxil.auxil.mapmarker.OnInfoWindowTouchListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -24,6 +31,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,9 +49,16 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     private GeoDataClient geoDataClient;
     private PlaceDetectionClient placeDetectionClient;
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private MapWrapperLayout mapWrapperLayout;
 
     private LatLng defaultLocation = new LatLng(-34, 151);
     private Location lastKnownLocation;
+
+    private ViewGroup infoWindow;
+    private TextView infoTitle;
+    private TextView infoSnippet;
+    private Button infoButton;
+    private OnInfoWindowTouchListener infoButtonListener;
 
 
     @Override
@@ -60,6 +75,8 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
         fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(this);
 
+        setUpInfoWindow();
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -67,9 +84,99 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
+     * Callback to handle results of permission request
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        locationPermissionGranted = false;
+        switch (requestCode) {
+            case FINE_LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationPermissionGranted = true;
+                }
+            }
+        }
+
+        updateLocationUI();
+    }
+
+    /**
+     * Sets up map when GoogleMap is available
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        // Prompt the user for permission.
+        getLocationPermission();
+
+        // Sets location controls on map
+        updateLocationUI();
+
+        // Gets current location and sets position on the map
+        getDeviceLocation();
+
+        // TODO: Iterate through all place information and add correct positions + titles
+        // Adds all place markers on the map
+        addMarkers(defaultLocation, "Feed Everyone Food Bank");
+        moveCameraToMarker(defaultLocation);
+    }
+
+    /**
+     * Sets up the custom info windows from {@link OnInfoWindowTouchListener}
+     */
+    private void setUpInfoWindow() {
+        mapWrapperLayout = (MapWrapperLayout)findViewById(R.id.map_relative_layout);
+        this.infoWindow = (ViewGroup)getLayoutInflater().inflate(R.layout.info_window, null);
+        this.infoTitle = (TextView)infoWindow.findViewById(R.id.title);
+        this.infoSnippet = (TextView)infoWindow.findViewById(R.id.snippet);
+        this.infoButton = (Button)infoWindow.findViewById(R.id.button);
+
+        // Setting up button listener so it shows up
+        this.infoButtonListener = new OnInfoWindowTouchListener(infoButton,
+                getResources().getDrawable(R.drawable.button_info),
+                getResources().getDrawable(R.drawable.button_info))
+        {
+            @Override
+            protected void onClickConfirmed(View v, Marker marker) {
+                // Here we can perform some action triggered after clicking the button
+                Toast.makeText(FoodBankMapActivity.this,
+                        marker.getTitle() + "'s button clicked!",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        };
+
+        this.infoButton.setOnTouchListener(infoButtonListener);
+
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                // Setting up the infoWindow with current's marker info
+                infoTitle.setText(marker.getTitle());
+                infoSnippet.setText(marker.getSnippet());
+                infoButtonListener.setMarker(marker);
+
+                // We must call this to set the current marker and infoWindow references
+                // to the MapWrapperLayout
+                mapWrapperLayout.setMarkerWithInfoWindow(marker, infoWindow);
+                return infoWindow;
+            }
+        });
+    }
+
+    /**
      * Sets listener for the navigation and handles click events
      */
-    public void setUpBottomNavigation() {
+    private void setUpBottomNavigation() {
         final BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
@@ -121,36 +228,24 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * Sets up map when GoogleMap is available
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-
-        // Prompt the user for permission.
-        getLocationPermission();
-
-        // Sets location controls on map
-        updateLocationUI();
-
-        // Gets current location and sets position on the map
-        getDeviceLocation();
-
-        // TODO: Iterate through all place information and add correct positions + titles
-        // Adds all place markers on the map
-        addMarkers(defaultLocation, "Feed Everyone Food Bank");
-        moveCameraToMarker(defaultLocation);
-    }
-
-    /**
      * Uses position and marker title to set marker on map
      */
     private void addMarkers(LatLng position, String title) {
         // TODO: Populate with hours, and short description
         map.addMarker(new MarkerOptions()
-                .position(position)
-                .title(title))
-                .setSnippet("Population: 4,137,400");
+                .title(title)
+                .snippet("Czech Republic")
+                .position(position));
+
+        map.addMarker(new MarkerOptions()
+                .title("Paris")
+                .snippet("France")
+                .position(new LatLng(48.86,2.33)));
+
+        map.addMarker(new MarkerOptions()
+                .title("London")
+                .snippet("United Kingdom")
+                .position(new LatLng(51.51,-0.1)));
     }
 
     /**
@@ -175,26 +270,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                     new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
                     FINE_LOCATION_PERMISSION_REQUEST_CODE);
         }
-    }
-
-    /**
-     * Callback to handle results of permission request
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        locationPermissionGranted = false;
-        switch (requestCode) {
-            case FINE_LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationPermissionGranted = true;
-                }
-            }
-        }
-
-        updateLocationUI();
     }
 
     /**
@@ -227,7 +302,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
      * cases when a location is not available.
      */
     private void getDeviceLocation() {
-
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
