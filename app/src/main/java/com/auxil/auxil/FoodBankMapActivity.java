@@ -84,6 +84,57 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
+     * Sets up map when GoogleMap is available
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        // Prompt the user for permission.
+        updateLocationPermission();
+
+        // Sets location controls on map
+        updateLocationUI();
+
+        // Gets current location and sets position on the map
+        updateDeviceLocation();
+
+        // TODO: Iterate through all place information and add correct positions + titles
+        // Adds all place markers on the map
+        addMarkers(defaultLocation, "Feed Everyone Food Bank");
+        moveCameraToMarker(defaultLocation);
+    }
+
+    /**
+     * Uses position and marker title to set marker on map
+     */
+    public void addMarkers(LatLng position, String title) {
+        // TODO: Populate with hours, and short description
+        map.addMarker(new MarkerOptions()
+                .title(title)
+                .snippet("Czech Republic")
+                .position(position));
+
+        map.addMarker(new MarkerOptions()
+                .title("Paris")
+                .snippet("France")
+                .position(new LatLng(48.86,2.33)));
+
+        map.addMarker(new MarkerOptions()
+                .title("London")
+                .snippet("United Kingdom")
+                .position(new LatLng(51.51,-0.1)));
+    }
+
+    /**
+     * Uses position to move to the area of the marker
+     */
+    public void moveCameraToMarker(LatLng position) {
+        // TODO: Instead of taking in position, take in Marker, makes more sense for fn
+        map.moveCamera(CameraUpdateFactory.newLatLng(position));
+    }
+
+    /**
      * Callback to handle results of permission request
      */
     @Override
@@ -101,28 +152,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
         }
 
         updateLocationUI();
-    }
-
-    /**
-     * Sets up map when GoogleMap is available
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-
-        // Prompt the user for permission.
-        getLocationPermission();
-
-        // Sets location controls on map
-        updateLocationUI();
-
-        // Gets current location and sets position on the map
-        getDeviceLocation();
-
-        // TODO: Iterate through all place information and add correct positions + titles
-        // Adds all place markers on the map
-        addMarkers(defaultLocation, "Feed Everyone Food Bank");
-        moveCameraToMarker(defaultLocation);
     }
 
     /**
@@ -228,37 +257,9 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * Uses position and marker title to set marker on map
-     */
-    private void addMarkers(LatLng position, String title) {
-        // TODO: Populate with hours, and short description
-        map.addMarker(new MarkerOptions()
-                .title(title)
-                .snippet("Czech Republic")
-                .position(position));
-
-        map.addMarker(new MarkerOptions()
-                .title("Paris")
-                .snippet("France")
-                .position(new LatLng(48.86,2.33)));
-
-        map.addMarker(new MarkerOptions()
-                .title("London")
-                .snippet("United Kingdom")
-                .position(new LatLng(51.51,-0.1)));
-    }
-
-    /**
-     * Uses position to move to the area of the marker
-     */
-    private void moveCameraToMarker(LatLng position) {
-        map.moveCamera(CameraUpdateFactory.newLatLng(position));
-    }
-
-    /**
      * Requests runtime permissions for user location access
      */
-    private void getLocationPermission() {
+    private void updateLocationPermission() {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -289,7 +290,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                 map.setMyLocationEnabled(false);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
                 lastKnownLocation = null;
-                getLocationPermission();
+                updateLocationPermission();
             }
         }
         catch (SecurityException e)  {
@@ -301,7 +302,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
      * Get the best and most recent location of the device, which may be null in rare
      * cases when a location is not available.
      */
-    private void getDeviceLocation() {
+    private void updateDeviceLocation() {
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
