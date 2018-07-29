@@ -75,8 +75,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
         fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(this);
 
-        setUpInfoWindow();
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -98,6 +96,8 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
         // Gets current location and sets position on the map
         updateDeviceLocation();
+
+        setUpInfoWindow();
 
         // TODO: Iterate through all place information and add correct positions + titles
         // Adds all place markers on the map
