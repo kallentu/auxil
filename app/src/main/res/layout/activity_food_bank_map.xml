@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.auxil.auxil.mapmarker.MapWrapperLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.auxil.auxil.map.MapWrapperLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map_relative_layout"
     android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".FoodBankMapActivity" />
+        tools:context=".map.FoodBankMapActivity" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -22,4 +22,4 @@
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
         app:menu="@menu/bottom_navigation"/>
-</com.auxil.auxil.mapmarker.MapWrapperLayout>
+</com.auxil.auxil.map.MapWrapperLayout>

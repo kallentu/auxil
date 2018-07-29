@@ -1,4 +1,4 @@
-package com.auxil.auxil.mapmarker;
+package com.auxil.auxil.map;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -13,12 +13,7 @@ import com.google.android.gms.maps.model.Marker;
 public class MapWrapperLayout extends RelativeLayout {
     private GoogleMap map;
     private Marker marker;
-
-    /** Custom view returned from infoWindowAdapter.getInfoContents */
     private View infoWindow;
-
-    /** Vertical space between marker and start of info */
-    private int bottomPixels;
 
 
     public MapWrapperLayout(Context context) {
@@ -34,9 +29,8 @@ public class MapWrapperLayout extends RelativeLayout {
     }
 
     /** Must be called before performing any other actions */
-    public void initialize(GoogleMap map, int bottomPixels) {
+    public void initializeMap(GoogleMap map) {
         this.map = map;
-        this.bottomPixels = bottomPixels;
     }
 
     /** Called from infoWindowAdapter.getInfoContents */
@@ -56,7 +50,7 @@ public class MapWrapperLayout extends RelativeLayout {
             // Adjusting location so it is relative to infoWindow left top corner
             copyEv.offsetLocation(
                     -markerPosition.x + (infoWindow.getWidth() / 2),
-                    -markerPosition.y + (infoWindow.getHeight() + bottomPixels));
+                    -markerPosition.y + (infoWindow.getHeight()));
 
             ret = infoWindow.dispatchTouchEvent(copyEv);
         }
