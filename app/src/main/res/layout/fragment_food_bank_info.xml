@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <!-- TODO: Decide what text to put in fragment and then put them in string /res/-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/cabin_condensed_bold"
+        android:textSize="60sp"
+        android:text="FOOD BANK TITLE" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/quicksand"
+        android:textSize="16sp"
+        android:text="FOOD BANK HOURS." />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/quicksand"
+        android:textSize="16sp"
+        android:text="MORE INFO ABOUT THEM." />
+</LinearLayout>

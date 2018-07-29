@@ -1,6 +1,9 @@
 package com.auxil.auxil.map;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 import com.auxil.auxil.FoodBankDonateActivity;
 import com.auxil.auxil.R;
 import com.auxil.auxil.SettingsActivity;
+import com.auxil.auxil.info.FoodBankInfoFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -106,10 +110,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(FoodBankMapActivity.this,
-                marker.getTitle() + "'s button clicked!",
-                Toast.LENGTH_SHORT)
-                .show();
+        startActivity(new Intent(this, FoodBankInfoFragment.class));
     }
 
     /**
@@ -162,7 +163,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * Sets up the custom info windows from {@link OnInfoWindowTouchListener}
+     * Sets up the custom info windows from {@link MapWrapperLayout}
      */
     private void setUpInfoWindow() {
         mapWrapperLayout = (MapWrapperLayout)findViewById(R.id.map_relative_layout);
