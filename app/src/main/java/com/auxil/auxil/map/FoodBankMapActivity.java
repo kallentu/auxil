@@ -1,9 +1,6 @@
 package com.auxil.auxil.map;
 
 import android.Manifest;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.auxil.auxil.FoodBankDonateActivity;
 import com.auxil.auxil.R;
@@ -40,13 +36,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class FoodBankMapActivity extends FragmentActivity implements BottomNavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private String TAG = FoodBankMapActivity.class.getSimpleName();
     private static final int NAV_MAP_INDEX = 0;
     private static final int NAV_DONATE_INDEX = 1;
     private static final int NAV_SETTINGS_INDEX = 2;
     private static final int FINE_LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private BottomNavigationView bottomNavigationView;
     private Boolean locationPermissionGranted;
 
     private GoogleMap map;
@@ -196,7 +193,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
      * Sets listener for the navigation and handles click events
      */
     private void setUpBottomNavigation() {
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+        bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -319,5 +316,40 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
         catch (SecurityException e)  {
             Log.e("SecurityException: %s", e.getMessage());
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.nav_map:
+                startActivity(new Intent(this, FoodBankMapActivity.class));
+
+//                item.setEnabled(false);
+//                bottomNavigationView.getMenu()
+//                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
+//                bottomNavigationView.getMenu()
+//                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
+                break;
+            case R.id.nav_donate:
+                startActivity(new Intent(this, FoodBankDonateActivity.class));
+
+//                item.setEnabled(false);
+//                bottomNavigationView.getMenu()
+//                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+//                bottomNavigationView.getMenu()
+//                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
+
+                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+
+//                item.setEnabled(false);
+//                bottomNavigationView.getMenu()
+//                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+//                bottomNavigationView.getMenu()
+//                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
+                break;
+        }
+        return true;
     }
 }
