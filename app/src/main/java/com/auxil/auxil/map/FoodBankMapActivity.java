@@ -1,6 +1,7 @@
 package com.auxil.auxil.map;
 
 import android.Manifest;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -28,6 +29,7 @@ import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -107,7 +109,10 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        startActivity(new Intent(this, FoodBankInfoFragment.class));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.info, new FoodBankInfoFragment())
+                .addToBackStack("Map")
+                .commit();
     }
 
     /**
