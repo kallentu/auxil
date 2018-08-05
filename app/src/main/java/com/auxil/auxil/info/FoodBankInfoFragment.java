@@ -14,16 +14,6 @@ public class FoodBankInfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_food_bank_info, container);
-        return v;
+        return inflater.inflate(R.layout.fragment_food_bank_info, container);
     }
-
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-////        // Removes the top nav bar
-////        requestWindowFeature(Window.FEATURE_NO_TITLE);
-////        setContentView(R.layout.fragment_food_bank_info);
-//    }
 }

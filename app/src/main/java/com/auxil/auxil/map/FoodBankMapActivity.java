@@ -110,7 +110,7 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
     @Override
     public void onInfoWindowClick(Marker marker) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.info, new FoodBankInfoFragment())
+                .replace(R.id.fragment_switch, new FoodBankInfoFragment())
                 .addToBackStack("Map")
                 .commit();
     }

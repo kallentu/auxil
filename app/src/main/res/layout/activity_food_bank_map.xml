@@ -14,7 +14,7 @@
         tools:context=".map.FoodBankMapActivity" />
 
     <RelativeLayout
-        android:id="@+id/info"
+        android:id="@+id/fragment_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
