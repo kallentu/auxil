@@ -1,7 +1,6 @@
 package com.auxil.auxil.map;
 
 import android.Manifest;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -18,7 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.auxil.auxil.FoodBankDonateActivity;
+import com.auxil.auxil.FoodBankDonateFragment;
 import com.auxil.auxil.R;
 import com.auxil.auxil.SettingsActivity;
 import com.auxil.auxil.info.FoodBankInfoFragment;
@@ -29,7 +28,6 @@ import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -220,7 +218,7 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
                                 break;
                             case R.id.nav_donate:
                                 intent = new Intent(getApplicationContext(),
-                                        FoodBankDonateActivity.class);
+                                        FoodBankDonateFragment.class);
                                 startActivity(intent);
 
                                 item.setEnabled(false);
@@ -336,7 +334,7 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
 //                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
                 break;
             case R.id.nav_donate:
-                startActivity(new Intent(this, FoodBankDonateActivity.class));
+                startActivity(new Intent(this, FoodBankDonateFragment.class));
 
 //                item.setEnabled(false);
 //                bottomNavigationView.getMenu()

@@ -263,7 +263,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Bot
                 startActivity(new Intent(this, FoodBankMapActivity.class));
                 break;
             case R.id.nav_donate:
-                startActivity(new Intent(this, FoodBankDonateActivity.class));
+                startActivity(new Intent(this, FoodBankDonateFragment.class));
                 break;
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));

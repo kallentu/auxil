@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoodBankDonateActivity"
+    android:background="@color/white"
+    tools:context=".FoodBankDonateFragment"
     android:orientation="vertical">
 
     <!-- TODO: Decide what text to put here and then put them in string /res/-->
