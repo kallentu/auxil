@@ -67,7 +67,6 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
         // Removes the top nav bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_food_bank_map);
-        setUpBottomNavigation();
 
         geoDataClient = Places.getGeoDataClient(this);
         placeDetectionClient = Places.getPlaceDetectionClient(this);
@@ -103,6 +102,39 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
         // Adds all place markers on the map
         addMarkers(defaultLocation, "Feed Everyone Food Bank");
         moveCameraToMarker(defaultLocation);
+    }
+
+    /**
+     * Sets listener for the navigation and handles click events
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.nav_map:
+                break;
+            case R.id.nav_donate:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_switch, new FoodBankDonateFragment())
+                        .addToBackStack("Map")
+                        .commit();
+
+                item.setEnabled(false);
+                bottomNavigationView.getMenu()
+                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+                bottomNavigationView.getMenu()
+                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
+                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+
+                item.setEnabled(false);
+                bottomNavigationView.getMenu()
+                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+                bottomNavigationView.getMenu()
+                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -193,60 +225,6 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
     }
 
     /**
-     * Sets listener for the navigation and handles click events
-     */
-    private void setUpBottomNavigation() {
-        bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        Intent intent;
-                        switch(item.getItemId()) {
-                            case R.id.nav_map:
-                                intent = new Intent(getApplicationContext(),
-                                        FoodBankMapActivity.class);
-                                startActivity(intent);
-
-                                item.setEnabled(false);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
-                                break;
-                            case R.id.nav_donate:
-                                intent = new Intent(getApplicationContext(),
-                                        FoodBankDonateFragment.class);
-                                startActivity(intent);
-
-                                item.setEnabled(false);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
-
-                                break;
-                            case R.id.nav_settings:
-                                intent = new Intent(getApplicationContext(),
-                                        SettingsActivity.class);
-                                startActivity(intent);
-
-                                item.setEnabled(false);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
-                                break;
-                        }
-                        return true;
-                    }
-                }
-        );
-    }
-
-    /**
      * Requests runtime permissions for user location access
      */
     private void updateLocationPermission() {
@@ -319,40 +297,5 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
         catch (SecurityException e)  {
             Log.e("SecurityException: %s", e.getMessage());
         }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.nav_map:
-                startActivity(new Intent(this, FoodBankMapActivity.class));
-
-//                item.setEnabled(false);
-//                bottomNavigationView.getMenu()
-//                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
-//                bottomNavigationView.getMenu()
-//                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
-                break;
-            case R.id.nav_donate:
-                startActivity(new Intent(this, FoodBankDonateFragment.class));
-
-//                item.setEnabled(false);
-//                bottomNavigationView.getMenu()
-//                        .getItem(NAV_MAP_INDEX).setEnabled(true);
-//                bottomNavigationView.getMenu()
-//                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
-
-                break;
-            case R.id.nav_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-
-//                item.setEnabled(false);
-//                bottomNavigationView.getMenu()
-//                        .getItem(NAV_MAP_INDEX).setEnabled(true);
-//                bottomNavigationView.getMenu()
-//                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
-                break;
-        }
-        return true;
     }
 }
