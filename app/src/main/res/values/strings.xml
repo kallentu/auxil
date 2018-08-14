@@ -17,6 +17,9 @@
     <string name="nav_text_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- Text description for prompting user to click the window -->
+    <string name="info_window_click_prompt_text">Click this window for more info.</string>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

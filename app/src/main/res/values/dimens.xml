@@ -2,4 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
+
+    <!-- Title size of the info window -->
+    <dimen name="info_window_title_text_size">16sp</dimen>
+
+    <!-- Padding on top of the click prompt of the info window -->
+    <dimen name="info_window_click_prompt_padding_top">10dp</dimen>
 </resources>
