@@ -23,11 +23,6 @@
         android:textSize="18sp"
         android:text="234 GOOD PEOPLE STREET, CALIFORNIA, USA." />
 
-    <ListView
-        android:id="@+id/food_bank_hours_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
-
     <TextView
         android:id="@+id/food_bank_summary"
         android:layout_width="match_parent"
@@ -36,6 +31,12 @@
         android:fontFamily="@font/quicksand"
         android:textSize="18sp"
         android:text="MORE INFO ABOUT THEM." />
+
+    <ListView
+        android:id="@+id/food_bank_required_foods_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
