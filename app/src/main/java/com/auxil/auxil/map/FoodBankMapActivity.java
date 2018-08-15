@@ -3,15 +3,18 @@ package com.auxil.auxil.map;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,21 +46,23 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
     private static final int NAV_DONATE_INDEX = 1;
     private static final int NAV_SETTINGS_INDEX = 2;
     private static final int FINE_LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    /** Used for {@code onTouchEvent} to handle clicking outside of fragment*/
+    private boolean fragmentShown = false;
+
+    private LatLng defaultLocation = new LatLng(-34, 151);
     private BottomNavigationView bottomNavigationView;
     private Boolean locationPermissionGranted;
-
     private GoogleMap map;
     private GeoDataClient geoDataClient;
     private PlaceDetectionClient placeDetectionClient;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private MapWrapperLayout mapWrapperLayout;
-
-    private LatLng defaultLocation = new LatLng(-34, 151);
     private Location lastKnownLocation;
-
     private ViewGroup infoWindow;
     private TextView infoTitle;
     private TextView infoSnippet;
+    private Fragment currentFragment;
 
 
     @Override
@@ -113,8 +118,10 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
             case R.id.nav_map:
                 break;
             case R.id.nav_donate:
+                currentFragment = (Fragment) new FoodBankDonateFragment();
+                fragmentShown = true;
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_switch, new FoodBankDonateFragment())
+                        .replace(R.id.fragment_switch, currentFragment)
                         .addToBackStack("Map")
                         .commit();
 
@@ -139,10 +146,35 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        currentFragment = (Fragment) new FoodBankInfoFragment();
+        fragmentShown = true;
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_switch, new FoodBankInfoFragment())
+                .replace(R.id.fragment_switch, currentFragment)
                 .addToBackStack("Map")
                 .commit();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Closes the fragment is user clicks outside the fragment window
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (fragmentShown) {
+                // Creates a shape to store the fragment's window
+                Rect rect = new Rect(0, 0, 0, 0);
+                // Retrieves the fragment window shape
+                currentFragment.getView().getHitRect(rect);
+                // Check if event position is inside the fragment window
+                boolean insideFragment = rect.contains((int) event.getX(), (int) event.getY());
+                if (!insideFragment) {
+                    getSupportFragmentManager().beginTransaction()
+                            .remove(currentFragment)
+                            .commit();
+                    currentFragment = null;
+                    fragmentShown = false;
+                }
+            }
+        }
+        return super.onTouchEvent(event);
     }
 
     /**
