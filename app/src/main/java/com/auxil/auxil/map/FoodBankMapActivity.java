@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MenuItem;
@@ -39,7 +40,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class FoodBankMapActivity extends FragmentActivity implements BottomNavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private String TAG = FoodBankMapActivity.class.getSimpleName();
     private static final int NAV_MAP_INDEX = 0;
@@ -72,6 +73,7 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
         // Removes the top nav bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_food_bank_map);
+        setUpBottomNavigation();
 
         geoDataClient = Places.getGeoDataClient(this);
         placeDetectionClient = Places.getPlaceDetectionClient(this);
@@ -109,72 +111,14 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
         moveCameraToMarker(defaultLocation);
     }
 
-    /**
-     * Sets listener for the navigation and handles click events
-     */
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.nav_map:
-                break;
-            case R.id.nav_donate:
-                currentFragment = (Fragment) new FoodBankDonateFragment();
-                fragmentShown = true;
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_switch, currentFragment)
-                        .addToBackStack("Map")
-                        .commit();
-
-                item.setEnabled(false);
-                bottomNavigationView.getMenu()
-                        .getItem(NAV_MAP_INDEX).setEnabled(true);
-                bottomNavigationView.getMenu()
-                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
-                break;
-            case R.id.nav_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-
-                item.setEnabled(false);
-                bottomNavigationView.getMenu()
-                        .getItem(NAV_MAP_INDEX).setEnabled(true);
-                bottomNavigationView.getMenu()
-                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
-                break;
-        }
-        return true;
-    }
-
     @Override
     public void onInfoWindowClick(Marker marker) {
-        currentFragment = (Fragment) new FoodBankInfoFragment();
-        fragmentShown = true;
+//        currentFragment = (Fragment) new FoodBankInfoFragment();
+//        fragmentShown = true;
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_switch, currentFragment)
+                .replace(R.id.fragment_switch, new FoodBankInfoFragment())
                 .addToBackStack("Map")
                 .commit();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // Closes the fragment is user clicks outside the fragment window
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (fragmentShown) {
-                // Creates a shape to store the fragment's window
-                Rect rect = new Rect(0, 0, 0, 0);
-                // Retrieves the fragment window shape
-                currentFragment.getView().getHitRect(rect);
-                // Check if event position is inside the fragment window
-                boolean insideFragment = rect.contains((int) event.getX(), (int) event.getY());
-                if (!insideFragment) {
-                    getSupportFragmentManager().beginTransaction()
-                            .remove(currentFragment)
-                            .commit();
-                    currentFragment = null;
-                    fragmentShown = false;
-                }
-            }
-        }
-        return super.onTouchEvent(event);
     }
 
     /**
@@ -227,6 +171,13 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
     }
 
     /**
+     * Closes top fragment window when onClick
+     */
+    public void closeFragment(View view) {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    /**
      * Sets up the custom info windows from {@link MapWrapperLayout}
      */
     private void setUpInfoWindow() {
@@ -254,6 +205,58 @@ public class FoodBankMapActivity extends FragmentActivity implements BottomNavig
                 return null;
             }
         });
+    }
+
+    /**
+     * Sets listener for the navigation and handles click events
+     */
+    private void setUpBottomNavigation() {
+        bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch(item.getItemId()) {
+                            case R.id.nav_map:
+                                getSupportFragmentManager().popBackStack(null,
+                                        FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                                item.setEnabled(false);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
+                                break;
+                            case R.id.nav_donate:
+                                currentFragment = (Fragment) new FoodBankDonateFragment();
+                                fragmentShown = true;
+                                getSupportFragmentManager().beginTransaction()
+                                        .add(R.id.fragment_switch, new FoodBankDonateFragment())
+                                        .addToBackStack("Map")
+                                        .commit();
+
+                                item.setEnabled(false);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
+                                break;
+                            case R.id.nav_settings:
+                                startActivity(new Intent(getApplicationContext(),
+                                        SettingsActivity.class));
+
+                                item.setEnabled(false);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
+                                break;
+                        }
+                        return true;
+                    }
+                }
+        );
     }
 
     /**

@@ -12,8 +12,6 @@ public class FoodBankDonateFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
-        return inflater.inflate(R.layout.fragment_food_bank_donate, container);
+        return inflater.inflate(R.layout.fragment_food_bank_donate, container, false);
     }
 }

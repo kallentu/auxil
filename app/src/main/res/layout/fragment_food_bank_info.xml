@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
     android:orientation="vertical" >
     <!-- TODO: Decide what text to put in fragment and then put them in string /res/-->
     <TextView
@@ -42,4 +44,12 @@
         android:layout_height="wrap_content"
         android:textSize="16dp"
         android:text="CONTACT THEM"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand"
+        android:textSize="16dp"
+        android:onClick="closeFragment"
+        android:text="Close Fragment"/>
 </LinearLayout>
