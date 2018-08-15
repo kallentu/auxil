@@ -1,28 +1,31 @@
 <resources>
     <string name="app_name">Auxil</string>
 
-    <!-- Title for map activity -->
+    <!-- Title for map activity. -->
     <string name="title_activity_food_bank_map">Food Bank Map</string>
 
-    <!-- Title for map navigation item -->
+    <!-- ______________________ Bottom Navigation ______________________ -->
+    <!-- Title for map navigation item. -->
     <string name="nav_text_map">Home</string>
 
-    <!-- Title for food bank information navigation item -->
+    <!-- Title for food bank information navigation item. -->
     <string name="nav_text_info">Info</string>
 
-    <!-- Title for food bank donation navigation item -->
+    <!-- Title for food bank donation navigation item. -->
     <string name="nav_text_donate">Donate</string>
 
-    <!-- Title for food bank donation navigation item -->
+    <!-- Title for food bank donation navigation item. -->
     <string name="nav_text_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+    <!-- ______________________ Bottom Navigation ______________________ -->
 
-    <!-- Text description for prompting user to click the window -->
+    <!-- ______________________ Info Window ______________________ -->
+    <!-- Text description for prompting user to click the window. -->
     <string name="info_window_click_prompt_text">Click this window for more info.</string>
+    <!-- ______________________ Info Window ______________________ -->
 
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
+    <!-- ______________________ Settings ______________________ -->
+    <!-- Example General settings. -->
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
@@ -45,7 +48,7 @@
         <item>-1</item>
     </string-array>
 
-    <!-- Example settings for Data & Sync -->
+    <!-- Example settings for Data & Sync. -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
@@ -82,7 +85,7 @@
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
-    <!-- Example settings for Notifications -->
+    <!-- Example settings for Notifications. -->
     <string name="pref_header_notifications">Notifications</string>
 
     <string name="pref_title_new_message_notifications">New message notifications</string>
@@ -91,4 +94,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <!-- ______________________ Settings ______________________ -->
 </resources>

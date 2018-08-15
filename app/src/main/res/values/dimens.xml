@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- ______________________ Bottom Navigation ______________________ -->
     <!-- Text size of the titles in the bottom navigation. -->
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
+    <!-- ______________________ Bottom Navigation ______________________ -->
 
-    <!-- Title size of the info window -->
+    <!-- ______________________ Info Window ______________________ -->
+    <!-- Title size of the info window. -->
     <dimen name="info_window_title_text_size">16sp</dimen>
 
-    <!-- Padding on top of the click prompt of the info window -->
+    <!-- Padding on top of the click prompt of the info window. -->
     <dimen name="info_window_click_prompt_padding_top">10dp</dimen>
+    <!-- ______________________ Info Window ______________________ -->
+
+    <!-- ______________________ Food Bank Info ______________________ -->
+    <!-- Margin of all the items in the food bank info fragment. -->
+    <dimen name="food_bank_info_item_margin">20dp</dimen>
+
+    <!-- Text size of the food bank info fragment title. -->
+    <dimen name="food_bank_info_title_size">20sp</dimen>
+
+    <!-- Text size of the food bank info fragment paragraphs. -->
+    <dimen name="food_bank_info_text_size">14sp</dimen>
+
+    <!-- Text size of the food bank info fragment button text. -->
+    <dimen name="food_bank_info_button_text_size">12sp</dimen>
+    <!-- ______________________ Food Bank Info ______________________ -->
 </resources>
