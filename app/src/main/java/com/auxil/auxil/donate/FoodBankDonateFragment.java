@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.auxil.auxil.R;
 
+/** Fragment for donating food and money to a selected food bank. */
 public class FoodBankDonateFragment extends Fragment {
     @Nullable
     @Override

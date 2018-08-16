@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.auxil.auxil.R;
 
+/** Fragment for displaying information from a selected food bank. */
 public class FoodBankInfoFragment extends Fragment {
     @Nullable
     @Override

@@ -10,11 +10,11 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
+/** Customizes the info window in {@link FoodBankMapActivity}. */
 public class MapWrapperLayout extends RelativeLayout {
     private GoogleMap map;
     private Marker marker;
     private View infoWindow;
-
 
     public MapWrapperLayout(Context context) {
         super(context);
@@ -39,7 +39,7 @@ public class MapWrapperLayout extends RelativeLayout {
         this.infoWindow = infoWindow;
     }
 
-    /** Registering the infowindow touch event */
+    /** Registering the info window touch event */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         boolean ret = false;

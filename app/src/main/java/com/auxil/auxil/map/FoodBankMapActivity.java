@@ -38,30 +38,36 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+/** Activity for Google Maps API. */
 public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private String TAG = FoodBankMapActivity.class.getSimpleName();
+    private static final int FINE_LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    /** The ordering of the bottom navigation buttons. */
     private static final int NAV_MAP_INDEX = 0;
     private static final int NAV_DONATE_INDEX = 1;
     private static final int NAV_SETTINGS_INDEX = 2;
-    private static final int FINE_LOCATION_PERMISSION_REQUEST_CODE = 1;
 
-    /** Used for {@code onTouchEvent} to handle clicking outside of fragment*/
-    private boolean fragmentShown = false;
-
-    private LatLng defaultLocation = new LatLng(-34, 151);
-    private BottomNavigationView bottomNavigationView;
-    private Boolean locationPermissionGranted;
+    /** Fields used for the initialization of the Google Maps API. */
     private GoogleMap map;
     private GeoDataClient geoDataClient;
     private PlaceDetectionClient placeDetectionClient;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private MapWrapperLayout mapWrapperLayout;
+
+    /** Fields used for location of the user in {@code updateDeviceLocation}. */
+    private LatLng defaultLocation = new LatLng(-34, 151);
+    private Boolean locationPermissionGranted;
     private Location lastKnownLocation;
+
+    /** Field for the bottom navigation bar. */
+    private BottomNavigationView bottomNavigationView;
+
+    /** Fields used for the info bar, customized by {@link MapWrapperLayout}. */
+    private MapWrapperLayout mapWrapperLayout;
     private ViewGroup infoWindow;
     private TextView infoTitle;
     private TextView infoSnippet;
-    private Fragment currentFragment;
 
 
     @Override
@@ -111,12 +117,26 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-//        currentFragment = (Fragment) new FoodBankInfoFragment();
-//        fragmentShown = true;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_switch, new FoodBankInfoFragment())
                 .addToBackStack("Map")
                 .commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        locationPermissionGranted = false;
+        switch (requestCode) {
+            case FINE_LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationPermissionGranted = true;
+                }
+            }
+        }
+        updateLocationUI();
     }
 
     /**
@@ -146,26 +166,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     public void moveCameraToMarker(LatLng position) {
         // TODO: Instead of taking in position, take in Marker, makes more sense for fn
         map.moveCamera(CameraUpdateFactory.newLatLng(position));
-    }
-
-    /**
-     * Callback to handle results of permission request
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        locationPermissionGranted = false;
-        switch (requestCode) {
-            case FINE_LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationPermissionGranted = true;
-                }
-            }
-        }
-
-        updateLocationUI();
     }
 
     /**
@@ -227,8 +227,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                                         .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
                                 break;
                             case R.id.nav_donate:
-                                currentFragment = (Fragment) new FoodBankDonateFragment();
-                                fragmentShown = true;
                                 getSupportFragmentManager().beginTransaction()
                                         .add(R.id.fragment_switch, new FoodBankDonateFragment())
                                         .addToBackStack("Map")
