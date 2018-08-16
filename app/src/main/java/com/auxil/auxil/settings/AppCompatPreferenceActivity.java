@@ -1,4 +1,4 @@
-package com.auxil.auxil;
+package com.auxil.auxil.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

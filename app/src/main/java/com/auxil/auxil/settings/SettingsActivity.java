@@ -1,4 +1,4 @@
-package com.auxil.auxil;
+package com.auxil.auxil.settings;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -21,6 +21,8 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.auxil.auxil.R;
+import com.auxil.auxil.donate.FoodBankDonateFragment;
 import com.auxil.auxil.map.FoodBankMapActivity;
 
 import java.util.List;

@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    tools:context=".FoodBankDonateFragment" >
+    tools:context=".donate.FoodBankDonateFragment" >
 
     <!-- TODO: Decide what text to put here and then put them in string /res/-->
     <TextView
