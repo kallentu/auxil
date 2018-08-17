@@ -40,7 +40,8 @@
 
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:theme="@style/SettingsTheme"/>
     </application>
 
 </manifest>

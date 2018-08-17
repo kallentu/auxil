@@ -27,4 +27,12 @@
     <!-- Text size of the food bank info fragment button text. -->
     <dimen name="food_bank_info_button_text_size">12sp</dimen>
     <!-- ______________________ Food Bank Info ______________________ -->
+
+    <!-- ______________________ Settings ______________________ -->
+    <!-- Title size of the Settings action bar. -->
+    <dimen name="settings_bar_title_text_size">20dp</dimen>
+
+    <!-- Headers size of the Settings action bar. -->
+    <dimen name="settings_header_text_size">14dp</dimen>
+    <!-- ______________________ Settings ______________________ -->
 </resources>

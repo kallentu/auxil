@@ -19,12 +19,20 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.auxil.auxil.R;
 import com.auxil.auxil.donate.FoodBankDonateFragment;
 import com.auxil.auxil.map.FoodBankMapActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +47,8 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+    private List<Header> headers;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -136,6 +146,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Bot
         if (actionBar != null) {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
+
+            // Removes the gray line underneath the bar.
+            actionBar.setElevation(0);
         }
     }
 
@@ -153,6 +166,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Bot
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
+        headers = target;
         loadHeadersFromResource(R.xml.pref_headers, target);
     }
 
@@ -272,5 +286,82 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Bot
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void setListAdapter(ListAdapter adapter) {
+        if (headers == null) {
+            headers = new ArrayList<>();
+            // When the saved state provides the list of headers, onBuildHeaders is not called
+            // so we build it from the adapter given, then use our own adapter
+
+            int count = adapter.getCount();
+            for (int i = 0; i < count; ++i) {
+                headers.add((Header) adapter.getItem(i));
+            }
+        }
+
+        super.setListAdapter(new HeaderAdapter(this, headers, R.layout.preference_header_item, true));
+    }
+
+    private static class HeaderAdapter extends ArrayAdapter<Header> {
+        private static class HeaderViewHolder {
+            ImageView icon;
+            TextView title;
+            TextView summary;
+        }
+
+        private LayoutInflater inflater;
+        private int layoutResId;
+        private boolean removeIconIfEmpty;
+
+        HeaderAdapter(Context context, List<Header> objects, int layoutResId,
+                                   boolean removeIconBehavior) {
+            super(context, 0, objects);
+            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.layoutResId = layoutResId;
+            removeIconIfEmpty = removeIconBehavior;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            HeaderViewHolder holder;
+            View view;
+
+            if (convertView == null) {
+                view = inflater.inflate(layoutResId, parent, false);
+                holder = new HeaderViewHolder();
+                holder.icon = (ImageView) view.findViewById(R.id.icon);
+                holder.title = (TextView) view.findViewById(R.id.title);
+                holder.summary = (TextView) view.findViewById(R.id.summary);
+                view.setTag(holder);
+            } else {
+                view = convertView;
+                holder = (HeaderViewHolder) view.getTag();
+            }
+
+            // All view fields must be updated every time, because the view may be recycled
+            Header header = getItem(position);
+            if (removeIconIfEmpty) {
+                if (header.iconRes == 0) {
+                    holder.icon.setVisibility(View.GONE);
+                } else {
+                    holder.icon.setVisibility(View.VISIBLE);
+                    holder.icon.setImageResource(header.iconRes);
+                }
+            } else {
+                holder.icon.setImageResource(header.iconRes);
+            }
+            holder.title.setText(header.getTitle(getContext().getResources()));
+            CharSequence summary = header.getSummary(getContext().getResources());
+            if (!TextUtils.isEmpty(summary)) {
+                holder.summary.setVisibility(View.VISIBLE);
+                holder.summary.setText(summary);
+            } else {
+                holder.summary.setVisibility(View.GONE);
+            }
+
+            return view;
+        }
     }
 }
