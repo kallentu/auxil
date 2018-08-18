@@ -46,7 +46,7 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private List<Header> headers;
 
@@ -272,22 +272,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Bot
         }
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.nav_map:
-                startActivity(new Intent(this, FoodBankMapActivity.class));
-                break;
-            case R.id.nav_donate:
-                startActivity(new Intent(this, FoodBankDonateFragment.class));
-                break;
-            case R.id.nav_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-        }
-        return true;
-    }
-
+    /**
+     * Changes the layout for the preference headers populated in {@link SettingsActivity}.
+     */
     @Override
     public void setListAdapter(ListAdapter adapter) {
         if (headers == null) {
@@ -304,6 +291,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Bot
         super.setListAdapter(new HeaderAdapter(this, headers, R.layout.preference_header_item, true));
     }
 
+    /**
+     * Custom list adapter for preference headers in {@link SettingsActivity}.
+     */
     private static class HeaderAdapter extends ArrayAdapter<Header> {
         private static class HeaderViewHolder {
             ImageView icon;
