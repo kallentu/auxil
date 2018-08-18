@@ -241,12 +241,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                             case R.id.nav_settings:
                                 startActivity(new Intent(getApplicationContext(),
                                         SettingsActivity.class));
-
-                                item.setEnabled(false);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
-                                bottomNavigationView.getMenu()
-                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
                                 break;
                         }
                         return true;
