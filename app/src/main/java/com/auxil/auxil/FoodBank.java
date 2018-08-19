@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 
+/** Data object for holding food bank information, */
 @AutoValue
 abstract class FoodBank {
 
