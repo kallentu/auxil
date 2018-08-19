@@ -29,6 +29,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-wallet:15.0.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'org.jsoup:jsoup:1.10.1'
+    implementation 'com.google.auto.value:auto-value-annotations:1.6.2'
+    annotationProcessor "com.google.auto.value:auto-value:1.6.2"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
