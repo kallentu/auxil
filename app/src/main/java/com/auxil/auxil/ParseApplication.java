@@ -4,6 +4,8 @@ import android.app.Application;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,6 +77,24 @@ public class ParseApplication extends Application{
                 try {
                     for (String foodBankUrl : foodBanksCanadaUrls) {
                         Document doc = Jsoup.connect(foodBankUrl).get();
+
+                        String name = doc.title();
+
+                        // Address finder has requirement of number as well as the word Canada.
+                        // Assumes first entry for now
+                        // TODO: find better way without first entry assumption
+                        String address = doc
+                                .select("p:matches(^[0-9]), p:matches((?i)Canada)")
+                                .text();
+
+                        //String website = foodBankUrl;
+
+                        String phoneNumber = doc
+                                .select(":matches(^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$)")
+                                .text();
+
+                        //TODO: Add to database
+
                         // Parse websites here
                         // TODO: Do a different parse for each site? Or find a universal parse.
                     }
