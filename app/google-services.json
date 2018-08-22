@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "840600338905",
+    "firebase_url": "https://auxil-1530157930963.firebaseio.com",
+    "project_id": "auxil-1530157930963",
+    "storage_bucket": "auxil-1530157930963.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840600338905:android:3a5e3d4dfe4fd1fd",
+        "android_client_info": {
+          "package_name": "com.auxil.auxil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840600338905-hq5d6qj9ut06fd199ikq9ka827rll0pe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD75qasHOEPS2nZSQCxLkZaRYHwAlqrOE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

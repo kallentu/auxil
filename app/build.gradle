@@ -27,7 +27,9 @@ dependencies {
     implementation 'com.android.support:support-media-compat:27.1.1'
     implementation 'com.google.android.gms:play-services-places:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
-    implementation 'com.google.android.gms:play-services-wallet:15.0.1'
+    implementation 'com.google.android.gms:play-services-wallet:16.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'org.jsoup:jsoup:1.10.1'
     implementation 'com.google.auto.value:auto-value-annotations:1.6.2'
@@ -36,3 +38,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'

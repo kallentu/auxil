@@ -2,16 +2,22 @@ package com.auxil.auxil;
 
 import android.app.Application;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /** Application which parses food banks once before launching app. */
 public class ParseApplication extends Application{
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseName = database.getReference("name");
+    private final DatabaseReference databaseAddress = database.getReference("address");
+    private final DatabaseReference databasePhone = database.getReference("phone");
 
     /** List of food bank urls in Canada. */
     final ArrayList<String> foodBanksCanadaUrls = new ArrayList<>();
@@ -93,10 +99,13 @@ public class ParseApplication extends Application{
                                 .select(":matches(^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$)")
                                 .text();
 
-                        //TODO: Add to database
-
                         // Parse websites here
                         // TODO: Do a different parse for each site? Or find a universal parse.
+
+                        // TODO: https://firebase.google.com/docs/database/admin/save-data
+                        databaseName.setValue(name);
+                        databaseAddress.setValue(address);
+                        databasePhone.setValue(phoneNumber);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
