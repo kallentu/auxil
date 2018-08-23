@@ -10,10 +10,10 @@ abstract class FoodBank {
 
     abstract String name();
     abstract String address();
-    abstract int number();
+    abstract String number();
     abstract String website();
 
-    static AutoValue.Builder builder() {
+    static Builder builder() {
         return new AutoValue_FoodBank.Builder();
     }
 
@@ -21,7 +21,7 @@ abstract class FoodBank {
     abstract static class Builder {
         abstract Builder setName(String value);
         abstract Builder setAddress(String value);
-        abstract Builder setNumber(int value);
+        abstract Builder setNumber(String value);
         abstract Builder setWebsite(@Nullable String value);
         abstract FoodBank build();
     }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class ParseApplication extends Application{
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = database.getReference().child("food_bank");
     private final DatabaseReference databaseName = database.getReference("name");
     private final DatabaseReference databaseAddress = database.getReference("address");
     private final DatabaseReference databasePhone = database.getReference("phone");
@@ -103,9 +104,14 @@ public class ParseApplication extends Application{
                         // TODO: Do a different parse for each site? Or find a universal parse.
 
                         // TODO: https://firebase.google.com/docs/database/admin/save-data
-                        databaseName.setValue(name);
-                        databaseAddress.setValue(address);
-                        databasePhone.setValue(phoneNumber);
+                        FoodBank foodBank = FoodBank.builder()
+                                .setName(name)
+                                .setAddress(address)
+                                .setNumber(phoneNumber)
+                                .setWebsite(foodBankUrl)
+                                .build();
+
+                        databaseReference.push().setValue(foodBank);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
