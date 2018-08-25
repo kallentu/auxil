@@ -15,10 +15,7 @@ import java.util.ArrayList;
 public class ParseApplication extends Application{
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private final DatabaseReference databaseReference = database.getReference().child("food_bank");
-    private final DatabaseReference databaseName = database.getReference("name");
-    private final DatabaseReference databaseAddress = database.getReference("address");
-    private final DatabaseReference databasePhone = database.getReference("phone");
+    private final DatabaseReference databaseReference = database.getReference();
 
     /** List of food bank urls in Canada. */
     final ArrayList<String> foodBanksCanadaUrls = new ArrayList<>();
@@ -111,7 +108,7 @@ public class ParseApplication extends Application{
                                 .setWebsite(foodBankUrl)
                                 .build();
 
-                        databaseReference.push().setValue(foodBank);
+                        databaseReference.child(name).setValue(foodBank);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
