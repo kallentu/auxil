@@ -2,6 +2,7 @@ package com.auxil.auxil;
 
 import android.app.Application;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -13,9 +14,8 @@ import java.util.ArrayList;
 
 /** Application which parses food banks once before launching app. */
 public class ParseApplication extends Application{
-
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private final DatabaseReference databaseReference = database.getReference();
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
 
     /** List of food bank urls in Canada. */
     final ArrayList<String> foodBanksCanadaUrls = new ArrayList<>();
@@ -23,6 +23,10 @@ public class ParseApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseApp.initializeApp(this.getApplicationContext());
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
+
         indexFoodBanksCanada();
         parseFoodBanksCanada();
     }
@@ -108,7 +112,7 @@ public class ParseApplication extends Application{
                                 .setWebsite(foodBankUrl)
                                 .build();
 
-                        databaseReference.child(name).setValue(foodBank);
+                        databaseReference.child(name).setValue(foodBank.toFirebaseValue());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

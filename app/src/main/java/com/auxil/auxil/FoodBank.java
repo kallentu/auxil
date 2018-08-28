@@ -4,8 +4,10 @@ import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 
+import me.mattlogan.auto.value.firebase.annotation.FirebaseValue;
+
 /** Data object for holding food bank information, */
-@AutoValue
+@AutoValue @FirebaseValue
 abstract class FoodBank {
 
     abstract String name();
@@ -15,6 +17,11 @@ abstract class FoodBank {
 
     static Builder builder() {
         return new AutoValue_FoodBank.Builder();
+    }
+
+    // Create AutoValue_Taco.FirebaseValue instance from AutoValue_Taco instance
+    public Object toFirebaseValue() {
+        return new AutoValue_FoodBank.FirebaseValue(this);
     }
 
     @AutoValue.Builder
