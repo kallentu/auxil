@@ -63,7 +63,23 @@ public class ParseApplication extends Application{
         foodBanksCanadaUrls.add("https://www.actonfoodshare.com/location-hours");
         // Quebec
         // TODO: Must go into each food bank id for Quebec
-        foodBanksCanadaUrls.add("https://www.banquesalimentaires.org/en/our-network/network-members/");
+        // https://www.banquesalimentaires.org/en/our-network/network-members/
+        foodBanksCanadaUrls.add("http://www.centredebenevolats.com/custompage.aspx?ResourceId=0c841f2d-ad6c-4135-9f25-5c7d9b1b1b2e");
+        foodBanksCanadaUrls.add("http://www.moissonbeauce.qc.ca/");
+        foodBanksCanadaUrls.add("http://www.moissonlanaudiere.org/");
+        foodBanksCanadaUrls.add("https://www.moissonlaurentides.org/");
+        foodBanksCanadaUrls.add("http://www.moissonoutaouais.com/index.php/fr/");
+        foodBanksCanadaUrls.add("http://www.moissonmontreal.org/");
+        foodBanksCanadaUrls.add("http://www.moissonoutaouais.com/");
+        foodBanksCanadaUrls.add("http://www.moissonquebec.com/");
+        foodBanksCanadaUrls.add("http://www.moissonrimouski.org/");
+        foodBanksCanadaUrls.add("http://www.moissonrivesud.org/");
+        foodBanksCanadaUrls.add("https://www.facebook.com/Moisson-Saguenay-Lac-St-Jean-1803268196580684/");
+        foodBanksCanadaUrls.add("https://www.moissonsudouest.org/");
+        foodBanksCanadaUrls.add("https://www.facebook.com/moissonamqui/");
+        foodBanksCanadaUrls.add("http://www.rbhrn.com/");
+        foodBanksCanadaUrls.add("http://www.sos-depannage.org/");
+        foodBanksCanadaUrls.add("https://www.facebook.com/MoissonKamouraska/");
         // New Brunswick
         foodBanksCanadaUrls.add("https://www.nbafb-abanb.net/en/default.php");
         /* P.E.I. Association of Food Banks
