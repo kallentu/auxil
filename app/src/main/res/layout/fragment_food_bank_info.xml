@@ -27,7 +27,7 @@
         android:text="234 GOOD PEOPLE STREET, CALIFORNIA, USA." />
 
     <TextView
-        android:id="@+id/food_bank_summary"
+        android:id="@+id/food_bank_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/food_bank_info_item_margin"
@@ -35,8 +35,9 @@
         android:gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
         android:textSize="@dimen/food_bank_info_text_size"
-        android:text="MORE INFO ABOUT THEM." />
+        android:text="604-455-455." />
 
+    <!-- TODO: Move this to the donate tab -->
     <ListView
         android:id="@+id/food_bank_required_foods_list"
         android:layout_width="match_parent"

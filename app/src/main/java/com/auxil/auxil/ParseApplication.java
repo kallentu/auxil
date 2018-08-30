@@ -28,7 +28,7 @@ public class ParseApplication extends Application{
         databaseReference = database.getReference();
 
         indexFoodBanksCanada();
-        parseFoodBanksCanada();
+//        parseFoodBanksCanada();
     }
 
     /**
@@ -106,21 +106,15 @@ public class ParseApplication extends Application{
 
                         // Address finder has requirement of number as well as the word Canada.
                         // Assumes first entry for now
-                        // TODO: find better way without first entry assumption
                         String address = doc
                                 .select("p:matches(^[0-9]), p:matches((?i)Canada)")
                                 .text();
-
-                        //String website = foodBankUrl;
 
                         String phoneNumber = doc
                                 .select(":matches(^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$)")
                                 .text();
 
                         // Parse websites here
-                        // TODO: Do a different parse for each site? Or find a universal parse.
-
-                        // TODO: https://firebase.google.com/docs/database/admin/save-data
                         FoodBank foodBank = FoodBank.builder()
                                 .setName(name)
                                 .setAddress(address)
@@ -128,7 +122,7 @@ public class ParseApplication extends Application{
                                 .setWebsite(foodBankUrl)
                                 .build();
 
-                        databaseReference.child(name).setValue(foodBank.toFirebaseValue());
+                        databaseReference.child("foodbanks").child(name).setValue(foodBank.toFirebaseValue());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
