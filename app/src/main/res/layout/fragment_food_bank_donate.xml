@@ -24,4 +24,9 @@
         android:fontFamily="@font/quicksand"
         android:textSize="16sp"
         android:text="Donate money to help food banks." />
+
+    <ListView
+        android:id="@+id/food_bank_required_foods_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 </LinearLayout>

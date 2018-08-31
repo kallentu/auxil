@@ -7,69 +7,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-import com.amazon.device.iap.PurchasingService;
-import com.amazon.device.iap.model.UserDataResponse;
 import com.auxil.auxil.R;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /** Fragment for donating food and money to a selected food bank. */
 public class FoodBankDonateFragment extends Fragment {
-    /** Store data related to purchase receipts. */
-//    private InAppPurchaseManager inAppPurchaseManager;
-
-    /** Data pertaining to who the current user is. */
-    private String currentUserId =  null;
-    private String currentMarketplace =  null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setUpIAP();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_food_bank_donate, container, false);
+        View view = (View) inflater.inflate(R.layout.fragment_food_bank_donate, container, false);
+        setUpRequiredFoodListAdapter(view);
+        return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        final Set<String> productSkus =  new HashSet<>();
-        productSkus.add( "com.amazon.example.iap.consumable" );
-        productSkus.add( "com.amazon.example.iap.entitlement" );
-        productSkus.add( "com.amazon.example.iap.subscription" );
-
-        PurchasingService.getUserData();
-        PurchasingService.getPurchaseUpdates(false);
-        PurchasingService.getProductData(productSkus);
+    /**
+     * Sets up {@link RequiredFoodListAdapter}.
+     * Used to set up the food information that food banks want the most.
+     */
+    private void setUpRequiredFoodListAdapter(View view) {
+        ListView infoList = view.findViewById(R.id.food_bank_required_foods_list);
+        RequiredFoodListAdapter listAdapter =
+                new RequiredFoodListAdapter(view.getContext(), R.layout.adapter_info);
+        infoList.setAdapter(listAdapter);
     }
-
-    public void onUserDataResponse(final UserDataResponse response) {
-        final UserDataResponse.RequestStatus status = response.getRequestStatus();
-
-        switch (status) {
-            case SUCCESSFUL:
-                currentUserId = response.getUserData().getUserId();
-                currentMarketplace = response.getUserData().getMarketplace();
-                break;
-            case FAILED:
-            case NOT_SUPPORTED:
-                break;
-        }
-    }
-
-//    private void setUpIAP() {
-//        inAppPurchaseManager = new InAppPurchaseManager(this);
-//        final InAppPurchaseListener purchaseListener =
-//                new InAppPurchaseListener(inAppPurchaseManager);
-//
-//        PurchasingService.registerListener(this.getContext(), purchaseListener);
-//    }
-
 }
