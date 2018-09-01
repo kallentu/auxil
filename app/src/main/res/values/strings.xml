@@ -5,6 +5,7 @@
     <string name="title_activity_food_bank_map">Food Bank Map</string>
 
     <!-- ______________________ Bottom Navigation ______________________ -->
+
     <!-- Title for map navigation item. -->
     <string name="nav_text_map">Home</string>
 
@@ -17,14 +18,34 @@
     <!-- Title for food bank donation navigation item. -->
     <string name="nav_text_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+
     <!-- ______________________ Bottom Navigation ______________________ -->
 
     <!-- ______________________ Info Window ______________________ -->
+
     <!-- Text description for prompting user to click the window. -->
     <string name="info_window_click_prompt_text">Click this window for more info.</string>
+
     <!-- ______________________ Info Window ______________________ -->
 
+    <!-- ______________________ FAQ ______________________ -->
+
+    <!-- Question regarding why app was made. -->
+    <string name="faq_question_about_text">What is the purpose of Auxil? Why did you make this?</string>
+
+    <!-- Answer regarding why app was made. -->
+    <string name="faq_answer_about_text">Auxil is based off of the fact that I needed a way to find a lot of food banks to be involved with, not only the ones that are close to me. From there, the app just became a way to help people and facilities across the country.</string>
+
+    <!-- Question regarding where the funds are heading. -->
+    <string name="faq_question_money_text">Where is my money going? Is this safe?</string>
+
+    <!-- Answer regarding where the funds are heading. -->
+    <string name="faq_answer_money_text">I can guarantee you that 100% of the funds you send through Auxil go to the rightful food banks. I will be posting receipts further on and honestly, it would be sad if I scammed people on an app like this, so no, I am not doing that.</string>
+
+    <!-- ______________________ FAQ ______________________ -->
+
     <!-- ______________________ Settings ______________________ -->
+
     <!-- Example General settings. -->
     <string name="pref_header_general">General</string>
 
@@ -94,5 +115,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
     <!-- ______________________ Settings ______________________ -->
 </resources>
