@@ -3,11 +3,13 @@ package com.auxil.auxil.map;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.auxil.auxil.FoodBank;
 import com.auxil.auxil.donate.FoodBankDonateFragment;
 import com.auxil.auxil.R;
 import com.auxil.auxil.settings.SettingsActivity;
@@ -37,6 +40,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.IOException;
 
 /** Activity for Google Maps API. */
 public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
@@ -48,6 +58,9 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     private static final int NAV_MAP_INDEX = 0;
     private static final int NAV_DONATE_INDEX = 1;
     private static final int NAV_SETTINGS_INDEX = 2;
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final DatabaseReference databaseReference = database.getReference();
 
     /** Fields used for the initialization of the Google Maps API. */
     private GoogleMap map;
@@ -109,9 +122,8 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
         setUpInfoWindow();
 
-        // TODO: Iterate through all place information and add correct positions + titles
         // Adds all place markers on the map
-        addMarkers(defaultLocation, "Feed Everyone Food Bank");
+        addMarkersFromDatabase();
         moveCameraToMarker(defaultLocation);
     }
 
@@ -140,24 +152,51 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * Uses position and marker title to set marker on map
+     * Adds markers from all the food bank information in the FireBase database.
      */
-    public void addMarkers(LatLng position, String title) {
-        // TODO: Populate with hours, and short description
-        map.addMarker(new MarkerOptions()
-                .title(title)
-                .snippet("Czech Republic")
-                .position(position));
+    public void addMarkersFromDatabase() {
+        final Geocoder geocoder = new Geocoder(getApplicationContext());
 
-        map.addMarker(new MarkerOptions()
-                .title("Paris")
-                .snippet("France")
-                .position(new LatLng(48.86,2.33)));
+        databaseReference.child("foodbanks").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                // Retrieve FoodBank class to
+                FoodBank foodBank = dataSnapshot.getValue(FoodBank.class);
+                assert foodBank != null;
 
-        map.addMarker(new MarkerOptions()
-                .title("London")
-                .snippet("United Kingdom")
-                .position(new LatLng(51.51,-0.1)));
+                // Uses Geocoder to obtain coordinates from address, then adds marker to map
+                try {
+                    Address address = geocoder.getFromLocationName(foodBank.address(), 1).get(0);
+                    map.addMarker(new MarkerOptions()
+                            .title(foodBank.name())
+                            .snippet(foodBank.address())
+                            .position(new LatLng(address.getLatitude(), address.getLongitude())));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     /**
