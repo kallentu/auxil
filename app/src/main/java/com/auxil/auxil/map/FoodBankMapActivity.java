@@ -124,7 +124,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
         // Adds all place markers on the map
         addMarkersFromDatabase();
-        moveCameraToMarker(defaultLocation);
     }
 
     @Override
@@ -203,7 +202,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
      * Uses position to move to the area of the marker
      */
     public void moveCameraToMarker(LatLng position) {
-        // TODO: Instead of taking in position, take in Marker, makes more sense for fn
         map.moveCamera(CameraUpdateFactory.newLatLng(position));
     }
 
@@ -344,9 +342,9 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                         if (task.isSuccessful()) {
                             // Set camera position to current location
                             lastKnownLocation = task.getResult();
-                            map.moveCamera(CameraUpdateFactory.newLatLng(
-                                    new LatLng(lastKnownLocation.getLatitude(),
-                                               lastKnownLocation.getLongitude())));
+                            moveCameraToMarker(new LatLng(
+                                    lastKnownLocation.getLatitude(),
+                                    lastKnownLocation.getLongitude()));
                         }
                         else {
                             Log.d(TAG, "Current location is null. Using defaults.");
