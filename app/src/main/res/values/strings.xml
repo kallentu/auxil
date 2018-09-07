@@ -15,6 +15,9 @@
     <!-- Title for food bank donation navigation item. -->
     <string name="nav_text_donate">Donate</string>
 
+    <!-- Title for FAQ navigation item. -->
+    <string name="nav_text_faq">Donate</string>
+
     <!-- Title for food bank donation navigation item. -->
     <string name="nav_text_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.auxil.auxil.FoodBank;
 import com.auxil.auxil.donate.FoodBankDonateFragment;
 import com.auxil.auxil.R;
+import com.auxil.auxil.faq.FAQFragment;
 import com.auxil.auxil.settings.SettingsActivity;
 import com.auxil.auxil.info.FoodBankInfoFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -57,7 +58,8 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     /** The ordering of the bottom navigation buttons. */
     private static final int NAV_MAP_INDEX = 0;
     private static final int NAV_DONATE_INDEX = 1;
-    private static final int NAV_SETTINGS_INDEX = 2;
+    private static final int NAV_FAQ_INDEX = 2;
+    private static final int NAV_SETTINGS_INDEX = 3;
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = database.getReference();
@@ -261,6 +263,8 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                                 bottomNavigationView.getMenu()
                                         .getItem(NAV_DONATE_INDEX).setEnabled(true);
                                 bottomNavigationView.getMenu()
+                                        .getItem(NAV_FAQ_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
                                         .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
                                 break;
                             case R.id.nav_donate:
@@ -272,6 +276,23 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                                 item.setEnabled(false);
                                 bottomNavigationView.getMenu()
                                         .getItem(NAV_MAP_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_FAQ_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
+                                break;
+
+                            case R.id.nav_faq:
+                                getSupportFragmentManager().beginTransaction()
+                                        .add(R.id.fragment_switch, new FAQFragment())
+                                        .addToBackStack("FAQ")
+                                        .commit();
+
+                                item.setEnabled(false);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_MAP_INDEX).setEnabled(true);
+                                bottomNavigationView.getMenu()
+                                        .getItem(NAV_DONATE_INDEX).setEnabled(true);
                                 bottomNavigationView.getMenu()
                                         .getItem(NAV_SETTINGS_INDEX).setEnabled(true);
                                 break;
