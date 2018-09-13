@@ -46,6 +46,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 
@@ -61,8 +62,10 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     private static final int NAV_FAQ_INDEX = 2;
     private static final int NAV_SETTINGS_INDEX = 3;
 
+    /** Firebase database references. */
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = database.getReference();
+    private static final String FOOD_BANKS_REFERENCE = "foodbanks";
 
     /** Fields used for the initialization of the Google Maps API. */
     private GoogleMap map;
@@ -130,10 +133,41 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_switch, new FoodBankInfoFragment())
-                .addToBackStack("Map")
-                .commit();
+        String name = marker.getTitle();
+        databaseReference.child(FOOD_BANKS_REFERENCE).child(name).addValueEventListener(
+                new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    try {
+                        // Food bank information to send to the fragment
+                        FoodBank foodBank = dataSnapshot.getValue(FoodBank.class);
+                        Bundle infoBundle = new Bundle();
+                        if (foodBank.name() != null) infoBundle.putString("name", foodBank.name());
+                        if (foodBank.address() != null) infoBundle.putString("address", foodBank.address());
+                        if (foodBank.number() != null) infoBundle.putString("number", foodBank.number());
+                        if (foodBank.website() != null) infoBundle.putString("website", foodBank.website());
+
+                        FoodBankInfoFragment infoFragment= new FoodBankInfoFragment();
+                        infoFragment.setArguments(infoBundle);
+
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_switch, infoFragment)
+                                .addToBackStack("Map")
+                                .commit();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.e(TAG, "Food bank not found in database for info window.");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
     }
 
     @Override
@@ -158,7 +192,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
     public void addMarkersFromDatabase() {
         final Geocoder geocoder = new Geocoder(getApplicationContext());
 
-        databaseReference.child("foodbanks").addChildEventListener(new ChildEventListener() {
+        databaseReference.child(FOOD_BANKS_REFERENCE).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 // Retrieve FoodBank class to
