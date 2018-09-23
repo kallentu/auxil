@@ -37,6 +37,16 @@
         android:textSize="@dimen/food_bank_info_text_size"
         android:text="604-455-455." />
 
+    <TextView
+        android:id="@+id/food_bank_website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/food_bank_info_item_margin"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/quicksand"
+        android:textSize="@dimen/food_bank_info_text_size"
+        android:text="www.kallentu.com." />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

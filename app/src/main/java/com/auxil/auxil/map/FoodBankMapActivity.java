@@ -143,10 +143,11 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                         // Food bank information to send to the fragment
                         FoodBank foodBank = dataSnapshot.getValue(FoodBank.class);
                         Bundle infoBundle = new Bundle();
-                        if (foodBank.name() != null) infoBundle.putString("name", foodBank.name());
-                        if (foodBank.address() != null) infoBundle.putString("address", foodBank.address());
-                        if (foodBank.number() != null) infoBundle.putString("number", foodBank.number());
-                        if (foodBank.website() != null) infoBundle.putString("website", foodBank.website());
+                        infoBundle.putSerializable("foodbank", foodBank);
+//                        if (foodBank.name() != null) infoBundle.putString("name", foodBank.name());
+//                        if (foodBank.address() != null) infoBundle.putString("address", foodBank.address());
+//                        if (foodBank.number() != null) infoBundle.putString("number", foodBank.number());
+//                        if (foodBank.website() != null) infoBundle.putString("website", foodBank.website());
 
                         FoodBankInfoFragment infoFragment= new FoodBankInfoFragment();
                         infoFragment.setArguments(infoBundle);

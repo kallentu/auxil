@@ -1,15 +1,16 @@
 package com.auxil.auxil;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
+
+import java.io.Serializable;
 
 import me.mattlogan.auto.value.firebase.annotation.FirebaseValue;
 
 /** Data object for holding food bank information, */
 @AutoValue @FirebaseValue
-public abstract class FoodBank {
+public abstract class FoodBank implements Serializable{
 
     public abstract String name();
     public abstract String address();
