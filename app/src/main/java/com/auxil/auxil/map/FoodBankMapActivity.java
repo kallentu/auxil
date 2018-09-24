@@ -133,6 +133,7 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        // Retrieve food bank entry from database to populate FoodBankInfoFragment
         String name = marker.getTitle();
         databaseReference.child(FOOD_BANKS_REFERENCE).child(name).addValueEventListener(
                 new ValueEventListener() {
@@ -144,10 +145,6 @@ public class FoodBankMapActivity extends FragmentActivity implements OnMapReadyC
                         FoodBank foodBank = dataSnapshot.getValue(FoodBank.class);
                         Bundle infoBundle = new Bundle();
                         infoBundle.putSerializable("foodbank", foodBank);
-//                        if (foodBank.name() != null) infoBundle.putString("name", foodBank.name());
-//                        if (foodBank.address() != null) infoBundle.putString("address", foodBank.address());
-//                        if (foodBank.number() != null) infoBundle.putString("number", foodBank.number());
-//                        if (foodBank.website() != null) infoBundle.putString("website", foodBank.website());
 
                         FoodBankInfoFragment infoFragment= new FoodBankInfoFragment();
                         infoFragment.setArguments(infoBundle);

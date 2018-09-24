@@ -6,7 +6,7 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical" >
-    <!-- TODO: Remove placeholder strings and instead populate with actual information. -->
+
     <TextView
         android:id="@+id/food_bank_name"
         android:layout_width="match_parent"
@@ -14,8 +14,7 @@
         android:layout_marginTop="@dimen/food_bank_info_item_margin"
         android:gravity="center_horizontal"
         android:fontFamily="@font/cabin_condensed_bold"
-        android:textSize="@dimen/food_bank_info_title_size"
-        android:text="BIG BOI BANK" />
+        android:textSize="@dimen/food_bank_info_title_size" />
 
     <TextView
         android:id="@+id/food_bank_address"
@@ -23,8 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_text_size"
-        android:text="234 GOOD PEOPLE STREET, CALIFORNIA, USA." />
+        android:textSize="@dimen/food_bank_info_text_size" />
 
     <TextView
         android:id="@+id/food_bank_number"
@@ -34,8 +32,7 @@
         android:layout_marginBottom="@dimen/food_bank_info_item_margin"
         android:gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_text_size"
-        android:text="604-455-455." />
+        android:textSize="@dimen/food_bank_info_text_size" />
 
     <TextView
         android:id="@+id/food_bank_website"
@@ -44,8 +41,7 @@
         android:layout_marginBottom="@dimen/food_bank_info_item_margin"
         android:gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_text_size"
-        android:text="www.kallentu.com." />
+        android:textSize="@dimen/food_bank_info_text_size" />
 
     <Button
         android:layout_width="wrap_content"
@@ -53,7 +49,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
         android:textSize="@dimen/food_bank_info_button_text_size"
-        android:text="Contact them"/>
+        android:text="@string/info_fragment_contact_text"/>
 
     <Button
         android:layout_width="40dp"
