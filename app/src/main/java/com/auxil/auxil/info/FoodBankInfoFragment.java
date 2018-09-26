@@ -1,5 +1,7 @@
 package com.auxil.auxil.info;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.auxil.auxil.FoodBank;
@@ -24,15 +27,33 @@ public class FoodBankInfoFragment extends Fragment {
         // Updates the views with correct information
         if (getArguments() != null) {
             foodBank = (FoodBank) getArguments().getSerializable("foodbank");
-            TextView name = view.findViewById(R.id.food_bank_name);
-            TextView address = view.findViewById(R.id.food_bank_address);
-            TextView number = view.findViewById(R.id.food_bank_number);
-            TextView website = view.findViewById(R.id.food_bank_website);
+            assert foodBank != null;
 
-            if (!foodBank.name().isEmpty()) name.setText(foodBank.name());
-            if (!foodBank.address().isEmpty()) address.setText(foodBank.address());
-            if (!foodBank.number().isEmpty()) number.setText(foodBank.number());
-            if (!foodBank.website().isEmpty()) website.setText(foodBank.website());
+            if (!foodBank.name().isEmpty()) {
+                TextView name = view.findViewById(R.id.food_bank_name);
+                name.setText(foodBank.name());
+            }
+            if (!foodBank.address().isEmpty()) {
+                TextView address = view.findViewById(R.id.food_bank_address);
+                address.setText(foodBank.address());
+            }
+            if (!foodBank.number().isEmpty()) {
+                TextView number = view.findViewById(R.id.food_bank_number);
+                number.setText(foodBank.number());
+            }
+            // Sets the website link on button
+            if (!foodBank.website().isEmpty()) {
+                Button website = view.findViewById(R.id.food_bank_website);
+                website.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent browserIntent =
+                                new Intent(Intent.ACTION_VIEW, Uri.parse(foodBank.website()));
+                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (getContext() != null) getContext().startActivity(browserIntent);
+                    }
+                });
+            }
         }
         return view;
     }

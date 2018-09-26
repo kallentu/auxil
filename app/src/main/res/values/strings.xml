@@ -30,7 +30,10 @@
     <string name="info_window_click_prompt_text">Click this window for more info.</string>
 
     <!-- Text description for contact information. -->
-    <string name="info_fragment_contact_text">Click this window for more info.</string>
+    <string name="info_fragment_website_text">Website</string>
+
+    <!-- Content description for the close button. -->
+    <string name="info_fragment_close_content_description">Website</string>
 
     <!-- ______________________ Info Window ______________________ -->
 

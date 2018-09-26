@@ -7,6 +7,8 @@
     android:focusable="true"
     android:orientation="vertical" >
 
+    <!--TODO: Make this a Constraint layout so the close button can be top right -->
+
     <TextView
         android:id="@+id/food_bank_name"
         android:layout_width="match_parent"
@@ -34,24 +36,17 @@
         android:fontFamily="@font/quicksand"
         android:textSize="@dimen/food_bank_info_text_size" />
 
-    <TextView
-        android:id="@+id/food_bank_website"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/food_bank_info_item_margin"
-        android:gravity="center_horizontal"
-        android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_text_size" />
-
     <Button
+        android:id="@+id/food_bank_website"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
         android:textSize="@dimen/food_bank_info_button_text_size"
-        android:text="@string/info_fragment_contact_text"/>
+        android:text="@string/info_fragment_website_text"/>
 
-    <Button
+    <ImageButton
+        android:background="@drawable/ic_close"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="@dimen/food_bank_info_item_margin"
@@ -59,5 +54,5 @@
         android:fontFamily="@font/quicksand"
         android:textSize="@dimen/food_bank_info_button_text_size"
         android:onClick="closeFragment"
-        android:text="x"/>
+        android:contentDescription="@string/info_fragment_close_content_description" />
 </LinearLayout>
