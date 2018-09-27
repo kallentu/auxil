@@ -1,51 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical" >
-
-    <!--TODO: Make this a Constraint layout so the close button can be top right -->
-
-    <TextView
-        android:id="@+id/food_bank_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/food_bank_info_item_margin"
-        android:gravity="center_horizontal"
-        android:fontFamily="@font/cabin_condensed_bold"
-        android:textSize="@dimen/food_bank_info_title_size" />
-
-    <TextView
-        android:id="@+id/food_bank_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_text_size" />
-
-    <TextView
-        android:id="@+id/food_bank_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/food_bank_info_item_margin"
-        android:layout_marginBottom="@dimen/food_bank_info_item_margin"
-        android:gravity="center_horizontal"
-        android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_text_size" />
-
-    <Button
-        android:id="@+id/food_bank_website"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_button_text_size"
-        android:text="@string/info_fragment_website_text"/>
+    android:focusable="true">
 
     <ImageButton
+        android:id="@+id/info_fragment_close"
         android:background="@drawable/ic_close"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -54,5 +17,55 @@
         android:fontFamily="@font/quicksand"
         android:textSize="@dimen/food_bank_info_button_text_size"
         android:onClick="closeFragment"
-        android:contentDescription="@string/info_fragment_close_content_description" />
-</LinearLayout>
+        android:contentDescription="@string/info_fragment_close_content_description"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/food_bank_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/food_bank_info_item_margin"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/cabin_condensed_bold"
+        android:textSize="@dimen/food_bank_info_title_size"
+        app:layout_constraintTop_toBottomOf="@id/info_fragment_close"/>
+
+    <TextView
+        android:id="@+id/food_bank_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/food_bank_info_item_margin"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/quicksand"
+        android:textSize="@dimen/food_bank_info_text_size"
+        app:layout_constraintTop_toBottomOf="@id/food_bank_name"/>
+
+
+    <!--TODO: Turn food_bank_number -->
+    
+    <TextView
+        android:id="@+id/food_bank_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/food_bank_info_item_margin"
+        android:layout_marginBottom="@dimen/food_bank_info_item_margin"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/quicksand"
+        android:textSize="@dimen/food_bank_info_text_size"
+        app:layout_constraintTop_toBottomOf="@id/food_bank_address"/>
+
+    <Button
+        android:id="@+id/food_bank_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/quicksand"
+        android:text="@string/info_fragment_website_text"
+        android:textSize="@dimen/food_bank_info_button_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/food_bank_number" />
+</android.support.constraint.ConstraintLayout>
