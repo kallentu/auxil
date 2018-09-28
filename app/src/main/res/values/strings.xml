@@ -29,11 +29,14 @@
     <!-- Text description for prompting user to click the window. -->
     <string name="info_window_click_prompt_text">Click this window for more info.</string>
 
-    <!-- Text description for contact information. -->
+    <!-- Text description for website contact. -->
     <string name="info_fragment_website_text">Website</string>
 
+    <!-- Text description for phone contact. -->
+    <string name="info_fragment_phone_text">Phone</string>
+
     <!-- Content description for the close button. -->
-    <string name="info_fragment_close_content_description">Website</string>
+    <string name="info_fragment_close_content_description">Close the food bank information page.</string>
 
     <!-- ______________________ Info Window ______________________ -->
 

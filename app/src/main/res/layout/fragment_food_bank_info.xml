@@ -43,29 +43,32 @@
 
 
     <!--TODO: Turn food_bank_number -->
-    
-    <TextView
+
+    <Button
         android:id="@+id/food_bank_number"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/food_bank_info_item_margin"
-        android:layout_marginBottom="@dimen/food_bank_info_item_margin"
-        android:gravity="center_horizontal"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/food_bank_info_text_size"
-        app:layout_constraintTop_toBottomOf="@id/food_bank_address"/>
+        android:text="@string/info_fragment_phone_text"
+        android:textSize="@dimen/food_bank_info_button_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/food_bank_address" />
 
     <Button
         android:id="@+id/food_bank_website"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
+        android:layout_gravity="center_horizontal"
         android:fontFamily="@font/quicksand"
         android:text="@string/info_fragment_website_text"
         android:textSize="@dimen/food_bank_info_button_text_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/food_bank_number" />
+        app:layout_constraintStart_toEndOf="@+id/food_bank_number"
+        app:layout_constraintTop_toBottomOf="@+id/food_bank_address" />
 </android.support.constraint.ConstraintLayout>

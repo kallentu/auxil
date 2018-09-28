@@ -38,8 +38,15 @@ public class FoodBankInfoFragment extends Fragment {
                 address.setText(foodBank.address());
             }
             if (!foodBank.number().isEmpty()) {
-                TextView number = view.findViewById(R.id.food_bank_number);
-                number.setText(foodBank.number());
+                Button number = view.findViewById(R.id.food_bank_number);
+                number.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
+                        phoneIntent.setData(Uri.parse("tel:" + foodBank.number()));
+                        if (getContext() != null) getContext().startActivity(phoneIntent);
+                    }
+                });
             }
             // Sets the website link on button
             if (!foodBank.website().isEmpty()) {
