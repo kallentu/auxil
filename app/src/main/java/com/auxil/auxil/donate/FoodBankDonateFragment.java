@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import com.auxil.auxil.R;
 
+import java.util.ArrayList;
+
 /** Fragment for donating food and money to a selected food bank. */
 public class FoodBankDonateFragment extends Fragment {
 
@@ -33,8 +35,14 @@ public class FoodBankDonateFragment extends Fragment {
      */
     private void setUpRequiredFoodListAdapter(View view) {
         ListView infoList = view.findViewById(R.id.food_bank_required_foods_list);
+        ArrayList<String> requiredFoods = getRequiredFoods();
         RequiredFoodListAdapter listAdapter =
-                new RequiredFoodListAdapter(view.getContext(), R.layout.adapter_info);
+                new RequiredFoodListAdapter(view.getContext(), R.layout.adapter_info, requiredFoods);
         infoList.setAdapter(listAdapter);
+    }
+
+    // TODO: Grab required foods from the database and return as list
+    private ArrayList<String> getRequiredFoods() {
+        return new ArrayList<>();
     }
 }
